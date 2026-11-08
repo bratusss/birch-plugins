@@ -4,3 +4,4 @@ build.log
 renders/
 *.wav
 __pycache__/
+windows-zips/
