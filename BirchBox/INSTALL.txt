@@ -1,0 +1,12 @@
+Birch Box - Windows VST3 instalacija
+=====================================
+
+1. Atarhive so ZIP.
+2. Dubultklikskis uz install.bat (tas iekope "Birch Box.vst3" mape
+   C:\Program Files\Common Files\VST3 un prasis administratora tiesibas).
+   Vai iekope mapi "Birch Box.vst3" tur ar roku.
+3. FL Studio: Options -> Manage plugins -> Find plugins (Start scan).
+4. Mikseri uz bungu kanala pievieno "Birch Box" (Effects).
+
+Ja Windows brīdina par nezinamu izdevēju: More info -> Run anyway
+(plugins nav parakstits ar sertifikatu).

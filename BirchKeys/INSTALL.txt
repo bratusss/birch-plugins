@@ -1,0 +1,14 @@
+Birch Keys - Windows VST3 instalacija
+======================================
+
+1. Atarhive so ZIP.
+2. Dubultklikskis uz install.bat (tas iekope "Birch Keys.vst3" mape
+   C:\Program Files\Common Files\VST3 un prasis administratora tiesibas).
+   Vai iekope mapi "Birch Keys.vst3" tur ar roku.
+3. FL Studio: Options -> Manage plugins -> Find plugins (Start scan).
+4. Channel rack: Add -> More plugins -> "Birch Keys" (Generators).
+
+Savi preseti (SAVE poga) glabajas: %APPDATA%\Birch Keys\Presets
+
+Ja Windows brīdina par nezinamu izdevēju: More info -> Run anyway
+(plugins nav parakstits ar sertifikatu).

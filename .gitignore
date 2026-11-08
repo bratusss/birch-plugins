@@ -1,0 +1,6 @@
+build/
+build-test/
+build.log
+renders/
+*.wav
+__pycache__/

@@ -1,0 +1,58 @@
+name: Windows VST3
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dir: BirchBox
+            target: BirchBox
+            product: Birch Box
+          - dir: BirchKeys
+            target: BirchKeys
+            product: Birch Keys
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        shell: pwsh
+        run: cmake -S ${{ matrix.dir }} -B ${{ matrix.dir }}/build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build VST3
+        shell: pwsh
+        run: cmake --build ${{ matrix.dir }}/build --config Release --target ${{ matrix.target }}_VST3
+
+      - name: Package
+        shell: pwsh
+        run: |
+          $zipRoot = "pkg/${{ matrix.product }}"
+          New-Item -ItemType Directory -Force -Path $zipRoot | Out-Null
+          Copy-Item -Recurse "${{ matrix.dir }}/build/${{ matrix.target }}_artefacts/Release/VST3/${{ matrix.product }}.vst3" $zipRoot
+          Copy-Item "${{ matrix.dir }}/README.md" $zipRoot
+          Copy-Item "${{ matrix.dir }}/INSTALL.txt" $zipRoot
+          Copy-Item "${{ matrix.dir }}/install.bat" $zipRoot
+          if (Test-Path "${{ matrix.dir }}/RESEARCH.md") { Copy-Item "${{ matrix.dir }}/RESEARCH.md" $zipRoot }
+          Compress-Archive -Path "$zipRoot/*" -DestinationPath "${{ matrix.product }} - Windows VST3.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.product }} - Windows VST3
+          path: "${{ matrix.product }} - Windows VST3.zip"
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Birch plugins (Windows VST3)
+          body: "Jaunākie Windows VST3 buildi. Katrs ZIP satur plugina .vst3 mapi, install.bat un INSTALL.txt."
+          files: "${{ matrix.product }} - Windows VST3.zip"
